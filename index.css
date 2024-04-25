@@ -1,0 +1,121 @@
+.char {
+  display: inline-block;
+  animation: bounce ease-in-out 1.5s infinite;
+}
+
+body {
+  font-family: "Walter Turncoat", cursive;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #222222;
+  padding: 0;
+  margin: 0;
+  color: #ececec;
+}
+
+header {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header h1 {
+  display: inline-block;
+  line-height: 1em;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 0px 1rem;
+}
+
+article {
+  background-color: #009563;
+  position: relative;
+  margin: auto;
+  max-width: 800px;
+  white-space: wrap;
+  padding: 1.5rem;
+  border: 5px solid #3d6177;
+  opacity: 0;
+  padding: 0.5rem;
+  transition: opacity 0.3s ease-out;
+}
+
+article h2 {
+  position: absolute;
+  top: -2rem;
+  padding: 0 0.5rem;
+}
+
+article h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 110%;
+  height: 110%;
+  background-color: #018eb7;
+  z-index: -1;
+  transition: opacity 0.3s ease-out;
+  clip-path: polygon(100% 0, 88% 51%, 100% 100%, 0% 100%, 0 49%, 0% 0%);
+}
+
+article p {
+  font-size: 1.25rem;
+}
+
+.bounceScaleUp {
+  animation: bounceScaleUp 1s forwards ease-in-out;
+}
+
+.slideIn {
+  animation: slideIn 1s forwards ease-in-out;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes bounceScaleUp {
+  0%,
+  20% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  60% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%) scaleX(0);
+  }
+  to {
+    transform: translateX(0) scaleX(1);
+  }
+}
