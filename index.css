@@ -10,7 +10,7 @@ body {
   background-color: #222222;
   padding: 0;
   margin: 0;
-  color: #ececec;
+  color: white;
 }
 
 header {
@@ -19,11 +19,14 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: pre-wrap;
+  text-align: center;
 }
 
 header h1 {
   display: inline-block;
   line-height: 1em;
+  text-shadow: 3px 4px 5px #222222;
 }
 
 section {
@@ -62,11 +65,81 @@ article h2::before {
   background-color: #018eb7;
   z-index: -1;
   transition: opacity 0.3s ease-out;
-  clip-path: polygon(100% 0, 88% 51%, 100% 100%, 0% 100%, 0 49%, 0% 0%);
+  clip-path: polygon(100% 0, 94% 50%, 100% 100%, 0% 100%, 0 50%, 0% 0%);
+}
+
+article h2::after {
+  content: "";
+  position: absolute;
+  top: 4;
+  left: 0;
+  width: 115%;
+  height: 110%;
+  background-color: white;
+  z-index: -2;
+  transition: opacity 0.3s ease-out;
+  clip-path: polygon(100% 0, 94% 50%, 100% 100%, 0% 100%, 0 50%, 0% 0%);
 }
 
 article p {
   font-size: 1.25rem;
+}
+
+.action-call {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 100vh;
+}
+
+.action-call h2 {
+  margin-top: auto;
+  font-size: 3rem;
+  color: #009563;
+}
+
+.action-call p {
+  font-size: 1.25rem;
+}
+
+.action-call a {
+  background-color: #009563;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  border: 3px solid #018eb7;
+  color: white;
+  cursor: pointer;
+}
+
+a:hover {
+  animation: ease 0.5s scale(1.1);
+}
+
+.earth {
+  position: fixed;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background-image: url("https://github.com/dev-dong-su/Dev-to-FE-challenge-Earth-Day/assets/16986867/f6765c64-f420-41df-af87-9af4d42f980e");
+  background-size: cover;
+  background-position: center;
+}
+
+.human {
+  position: fixed;
+  z-index: -1;
+  width: 180px;
+  height: 250px;
+  transform: translate(-50%, -50%);
+  background-image: url("https://github.com/dev-dong-su/Dev-to-FE-challenge-Earth-Day/assets/16986867/bf91d0ed-9a97-4ae4-b9da-4ee670a7d866");
+  background-size: cover;
+  background-position: center;
 }
 
 .bounceScaleUp {
@@ -75,6 +148,85 @@ article p {
 
 .slideIn {
   animation: slideIn 1s forwards ease-in-out;
+}
+
+.testimonial,
+.events {
+  background-color: #009563;
+  position: relative;
+  margin: 5rem auto;
+  max-width: 800px;
+  white-space: wrap;
+  padding: 1.5rem;
+  border: 5px solid #3d6177;
+  opacity: 0;
+  padding: 0.5rem;
+  transition: opacity 0.3s ease-out;
+}
+
+.testimonial h2,
+.events h2 {
+  position: absolute;
+  top: -2rem;
+  padding: 0 0.5rem;
+}
+
+.testimonial h2::before,
+.events h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 110%;
+  height: 110%;
+  background-color: #018eb7;
+  z-index: -1;
+  transition: opacity 0.3s ease-out;
+  clip-path: polygon(100% 0, 94% 50%, 100% 100%, 0% 100%, 0 50%, 0% 0%);
+}
+
+.testimonial h2::after,
+.events h2::after {
+  content: "";
+  position: absolute;
+  top: 4;
+  left: 0;
+  width: 115%;
+  height: 110%;
+  background-color: white;
+  z-index: -2;
+  transition: opacity 0.3s ease-out;
+  clip-path: polygon(100% 0, 94% 50%, 100% 100%, 0% 100%, 0 50%, 0% 0%);
+}
+
+.testimonial p,
+.events p {
+  white-space: wrap;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+}
+
+.events a {
+  text-decoration: none;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  color: #3d6177;
+}
+.fadeInUp {
+  animation: fadeInUp 1s forwards;
+}
+
+footer {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: white;
+  white-space: pre-wrap;
+  text-align: center;
+  text-shadow: 3px 4px 5px #222222;
 }
 
 @keyframes bounce {
@@ -117,5 +269,16 @@ article p {
   }
   to {
     transform: translateX(0) scaleX(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
