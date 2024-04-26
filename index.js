@@ -1,7 +1,8 @@
-const init = () => {
+const initAnimation = () => {
+  bounce("header h1");
+  bounce("footer p");
   createEarth();
   createHuman();
-  humanAnimation();
 
   const articles = document.querySelectorAll("article");
 
@@ -16,7 +17,58 @@ const init = () => {
   observerAnimation("fadeInUp").observe(events);
 };
 
-const humanAnimation = () => {
+const observerAnimation = (token) => {
+  return new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(token);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      rootMargin: "0px",
+      threshold: 0.5,
+    }
+  );
+};
+
+const createEarth = () => {
+  const earthDiv = document.createElement("div");
+  earthDiv.className = "earth";
+  document.body.querySelector("section").appendChild(earthDiv);
+  const earth = document.querySelector(".earth");
+  const actionCallH2 = document.querySelector(".action-call p");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const earthRect = earth.getBoundingClientRect();
+          const currentTop = earthRect.top + window.scrollY;
+
+          earth.style.position = "absolute";
+          earth.style.top = `${currentTop + 100}px`;
+        } else {
+          earth.style.position = "fixed";
+          earth.style.top = "50%";
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+    }
+  );
+
+  observer.observe(actionCallH2);
+};
+
+const createHuman = () => {
+  const humanDiv = document.createElement("div");
+  humanDiv.className = "human";
+  document.body.appendChild(humanDiv);
+
   const target = document.querySelector(".action-call");
   const human = document.querySelector(".human");
   const earth = document.querySelector(".earth");
@@ -49,82 +101,50 @@ const humanAnimation = () => {
       human.style.top = "50%";
       human.style.left = "50%";
       human.style.display = "none";
-      earth.style.backgroundImage =
-        "url(https://github.com/dev-dong-su/Dev-to-FE-challenge-Earth-Day/assets/16986867/22153170-6b68-4c15-a946-d2ea5ee174b4)";
+      earth.style.backgroundImage = "url(./image/hug.png)";
 
       window.removeEventListener("scroll", handleScroll);
     }
   }
 };
 
-const observerAnimation = (token) => {
-  return new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add(token);
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      rootMargin: "0px",
-      threshold: 0.5,
-    }
-  );
-};
-
-const createEarth = () => {
-  const newDiv = document.createElement("div");
-  newDiv.className = "earth";
-  document.body.querySelector("section").appendChild(newDiv);
-  const earth = document.querySelector(".earth");
-  const actionCallH2 = document.querySelector(".action-call p");
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const earthRect = earth.getBoundingClientRect();
-          const currentTop = earthRect.top + window.scrollY;
-
-          earth.style.position = "absolute";
-          earth.style.top = `${currentTop + 100}px`;
-        } else {
-          earth.style.position = "fixed";
-          earth.style.top = "50%";
-        }
-      });
-    },
-    {
-      threshold: 0.1,
-    }
-  );
-
-  observer.observe(actionCallH2);
-};
-
-const createHuman = () => {
-  const newDiv = document.createElement("div");
-  newDiv.className = "human";
-  document.body.appendChild(newDiv);
-};
-
 const bounce = (query) => {
   const title = document.querySelector(query);
   const text = title.innerText;
-  let chars = text
-    .split(" ")
-    .map((char, index) => {
-      let delay = index * 0.1 + "s";
-      return `<span class="char" style="animation-delay: ${delay};">${char}</span>`;
-    })
-    .join(" ");
-  title.innerHTML = chars;
+
+  // 원래 텍스트를 숨겨서 접근성을 유지
+  const accessibleSpan = document.createElement("span");
+  accessibleSpan.innerText = text;
+  accessibleSpan.style.position = "absolute";
+  accessibleSpan.style.left = "-9999px";
+  accessibleSpan.style.width = "1px";
+  accessibleSpan.style.height = "1px";
+
+  title.innerHTML = ""; // 기존 내용을 삭제
+  title.appendChild(accessibleSpan); // 접근성을 위한 span 추가
+
+  // 애니메이션을 위한 span들 추가
+  text.split(" ").forEach((word, index) => {
+    const wordSpan = document.createElement("span");
+    wordSpan.className = "char"; // 애니메이션용 클래스
+    wordSpan.style.animationDelay = `${index * 0.1}s`;
+    wordSpan.textContent =
+      word + (index < text.split(" ").length - 1 ? " " : ""); // 공백 추가
+    wordSpan.setAttribute("aria-hidden", "true"); // 스크린 리더에서 이 span들을 무시하도록 설정
+    title.appendChild(wordSpan);
+  });
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  bounce("header h1");
-  bounce("footer p");
-  init();
+  initAnimation();
+
+  const sections = document.querySelectorAll("section > article");
+  sections.forEach((section, idx) => {
+    const h2 = section.querySelector("h2");
+    if (h2) {
+      const id = `header-${idx}`;
+      h2.id = id;
+      section.setAttribute("aria-labelledby", id);
+    }
+  });
 });

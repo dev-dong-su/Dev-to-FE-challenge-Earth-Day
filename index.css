@@ -5,7 +5,6 @@
 
 body {
   font-family: "Walter Turncoat", cursive;
-  font-weight: 400;
   font-style: normal;
   background-color: #222222;
   padding: 0;
@@ -111,11 +110,14 @@ article p {
   text-decoration: none;
   border: 3px solid #018eb7;
   color: white;
+  font-weight: bold;
   cursor: pointer;
+  font-size: 1.25rem;
+  transition: transform 0.3s ease;
 }
 
-a:hover {
-  animation: ease 0.5s scale(1.1);
+.action-call a:hover {
+  transform: scale(1.1);
 }
 
 .earth {
@@ -126,7 +128,7 @@ a:hover {
   transform: translate(-50%, -50%);
   width: 200px;
   height: 200px;
-  background-image: url("https://github.com/dev-dong-su/Dev-to-FE-challenge-Earth-Day/assets/16986867/f6765c64-f420-41df-af87-9af4d42f980e");
+  background-image: url("./image/earth.png");
   background-size: cover;
   background-position: center;
 }
@@ -137,7 +139,7 @@ a:hover {
   width: 180px;
   height: 250px;
   transform: translate(-50%, -50%);
-  background-image: url("https://github.com/dev-dong-su/Dev-to-FE-challenge-Earth-Day/assets/16986867/bf91d0ed-9a97-4ae4-b9da-4ee670a7d866");
+  background-image: url("./image/human.png");
   background-size: cover;
   background-position: center;
 }
@@ -207,10 +209,9 @@ a:hover {
 }
 
 .events a {
-  text-decoration: none;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   padding: 0.5rem;
-  color: #3d6177;
+  color: #71beed;
 }
 .fadeInUp {
   animation: fadeInUp 1s forwards;
