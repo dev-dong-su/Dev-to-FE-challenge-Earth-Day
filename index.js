@@ -39,8 +39,8 @@ const humanAnimation = () => {
   observer.observe(target);
 
   function handleScroll() {
-    let newTop = -50 + window.scrollY / 14;
-    let newLeft = -50 + window.scrollY / 14;
+    let newTop = -50 + window.scrollY / 12;
+    let newLeft = -50 + window.scrollY / 12;
 
     human.style.top = `${newTop}%`;
     human.style.left = `${newLeft}%`;
@@ -89,7 +89,7 @@ const createEarth = () => {
           const currentTop = earthRect.top + window.scrollY;
 
           earth.style.position = "absolute";
-          earth.style.top = `${currentTop}px`;
+          earth.style.top = `${currentTop + 100}px`;
         } else {
           earth.style.position = "fixed";
           earth.style.top = "50%";
