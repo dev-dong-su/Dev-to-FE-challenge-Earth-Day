@@ -3,17 +3,17 @@ const initAnimation = () => {
   bounce("footer p");
   createEarth();
   createHuman();
+  createScrollDown();
 
   const articles = document.querySelectorAll("article");
-
   articles.forEach((article) => {
     observerAnimation("bounceScaleUp").observe(article);
   });
 
   const testimonial = document.querySelector(".testimonial");
-  const events = document.querySelector(".events");
-
   observerAnimation("fadeInUp").observe(testimonial);
+
+  const events = document.querySelector(".events");
   observerAnimation("fadeInUp").observe(events);
 };
 
@@ -106,6 +106,14 @@ const createHuman = () => {
       window.removeEventListener("scroll", handleScroll);
     }
   }
+};
+
+const createScrollDown = () => {
+  const header = document.querySelector("header");
+  const scrollDown = document.createElement("div");
+  scrollDown.setAttribute("class", "scrollDown");
+
+  header.appendChild(scrollDown);
 };
 
 const bounce = (query) => {
